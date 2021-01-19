@@ -3,20 +3,28 @@ package main
 import (
 	"log"
 
+	"github.com/Akshit8/go-cassandra/config"
 	"github.com/gocql/gocql"
 )
 
 func main() {
+	// load config from env
+	var err error
+	config, err := config.LoadConfigFromEnv()
+	if err != nil {
+		log.Fatal("failed to load config", err)
+	}
 	// connect to cassandra cluster
-	cluster := gocql.NewCluster("35.229.149.49")
-	cluster.Port = 3005
+	cluster := gocql.NewCluster(config.CassandraHost)
+	cluster.Port = config.CassandraPort
 	cluster.Keyspace = "akshit"
 	cluster.Consistency = gocql.Quorum
 	session, err := cluster.CreateSession()
-	defer session.Close()
-
 	if err != nil {
 		log.Fatal("failed to connect to cassandra: ", err)
 	}
-	log.Print("connection successful");
+
+	defer session.Close()
+
+	log.Print("connection successful")
 }
