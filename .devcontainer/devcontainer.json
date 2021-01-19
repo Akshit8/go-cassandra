@@ -6,6 +6,6 @@
   "extensions": [
     "golang.go",
     "mikey.vscode-fileheader"
-  ],
-  "runArgs": ["--env-file","./app.env"]
+  ]
+  // "runArgs": ["--env-file","./.devContainer/app.env"]
 }
