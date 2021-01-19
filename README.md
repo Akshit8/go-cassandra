@@ -33,6 +33,14 @@ PRIMARY KEY (id)
 );
 ```
 
+## Config Mgmt
+```bash
+cd config
+cat sample.config.yml > config.yml
+
+# populate the file with your variables
+```
+
 ## Makefile specs
 - **git** - git add - commit - push commands
 - **cassandra** - starts single node cassandra cluster on docker
@@ -42,6 +50,7 @@ PRIMARY KEY (id)
 [cassandra-setup](https://hub.docker.com/_/cassandra)<br>
 [gocql](https://github.com/gocql/gocql)<br>
 [cassandra-port-specs](https://stackoverflow.com/questions/2359159/cassandra-port-usage-how-are-the-ports-used)<br>
+[cnf-mgmt-go](https://medium.com/@bnprashanth256/reading-configuration-files-and-environment-variables-in-go-golang-c2607f912b63)<br>
 
 ## Author
 **Akshit Sadana <akshitsadana@gmail.com>**
