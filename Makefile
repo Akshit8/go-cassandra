@@ -3,4 +3,6 @@ git:
 	git commit -m "$(msg)"
 	git push origin master
 
-.PHONY: git
+cassandra: docker-compose up -d
+
+.PHONY: git cassandra
