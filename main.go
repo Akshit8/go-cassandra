@@ -31,7 +31,11 @@ func main() {
 	}
 
 	// connect to cassandra cluster
-	db.CassandraConnect(config.CassandraHost, config.CassandraPort)
+	db.CassandraConnect(
+		config.CassandraHost,
+		config.CassandraPort,
+		config.CassandraKeyspace,
+	)
 
 	// create API router using mux
 	listeningAddress := fmt.Sprintf(":%s", config.AppPort)

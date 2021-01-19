@@ -15,9 +15,10 @@ import (
 // Config stores all configuration of the application.
 // The values are ready by viper from a config file or environment variable
 type Config struct {
-	AppPort       string `mapstructure:"APP_PORT"`
-	CassandraHost string `mapstructure:"CASSANDRA_HOST"`
-	CassandraPort int    `mapstructure:"CASSANDRA_PORT"`
+	AppPort           string `mapstructure:"APP_PORT"`
+	CassandraHost     string `mapstructure:"CASSANDRA_HOST"`
+	CassandraPort     int    `mapstructure:"CASSANDRA_PORT"`
+	CassandraKeyspace string `mapstructure:"CASSANDRA_KEYSPACE"`
 }
 
 // LoadConfig loads env variables to config object
