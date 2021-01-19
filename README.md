@@ -17,9 +17,9 @@ CREATE KEYSPACE streamdemoapi WITH replication = {'class': 'SimpleStrategy', 're
 
 
 ## References
-[cassandra-setup](https://hub.docker.com/_/cassandra)
-[gocql](https://github.com/gocql/gocql)
-[cassandra-port-specs](https://stackoverflow.com/questions/2359159/cassandra-port-usage-how-are-the-ports-used)
+[cassandra-setup](https://hub.docker.com/_/cassandra)<br>
+[gocql](https://github.com/gocql/gocql)<br>
+[cassandra-port-specs](https://stackoverflow.com/questions/2359159/cassandra-port-usage-how-are-the-ports-used)<br>
 
 ## Author
 **Akshit Sadana <akshitsadana@gmail.com>**
