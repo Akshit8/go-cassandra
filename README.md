@@ -5,10 +5,32 @@
 docker-compose up -d
 ```
 
-## Setting your cassandra cluster
+## Creating your cassandra cluster schema
 ```bash
 # create cassandra keyspace
-CREATE KEYSPACE streamdemoapi WITH replication = {'class': 'SimpleStrategy', 'replication_factor' : 1};
+CREATE KEYSPACE akshit WITH \
+replication = {'class': 'SimpleStrategy', 'replication_factor' : 1};
+
+# create table messages
+use akshit;
+create table messages (
+id UUID,
+user_id UUID,
+Message text,
+PRIMARY KEY(id)
+);
+
+# create table users
+use akshit;
+CREATE TABLE users (
+id UUID,
+firstname text,
+lastname text,
+age int,
+email text,
+city text,
+PRIMARY KEY (id)
+);
 ```
 
 ## Makefile specs
