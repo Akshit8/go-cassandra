@@ -9,6 +9,9 @@
 package config
 
 import (
+	"log"
+	"os"
+
 	"github.com/spf13/viper"
 )
 
@@ -23,6 +26,13 @@ type Config struct {
 
 // LoadConfig loads env variables to config object
 func LoadConfig() (config Config, err error) {
+	// config missing jugaad
+	_, err = os.Open("config/config.yml")
+	if err != nil {
+		log.Print("copying config file template...")
+		os.Link("config/sample.config.yml", "config/config.yml")
+	}
+
 	viper.SetConfigName("config")
 	viper.SetConfigType("yml")
 	viper.AddConfigPath("./config")

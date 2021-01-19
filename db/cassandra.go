@@ -18,11 +18,11 @@ import (
 var Session *gocql.Session
 
 // CassandraConnect connects to cassandra db and inits Session var
-func CassandraConnect(cassandraHost string, cassandraPort int, CassandraKeyspace string) {
+func CassandraConnect(cassandraHost string, cassandraPort int, cassandraKeyspace string) {
 	var err error
 	cluster := gocql.NewCluster(cassandraHost)
 	cluster.Port = cassandraPort
-	cluster.Keyspace = CassandraKeyspace
+	cluster.Keyspace = cassandraKeyspace
 	cluster.Consistency = gocql.Quorum
 	Session, err = cluster.CreateSession()
 	if err != nil {
