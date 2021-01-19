@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+  db:
+    image: cassandra:3
+    container_name: cassandraDB
+    restart: always
+    ports:
+      - 3005:9042
+    volumes:
+      - data:/var/lib/cassandra
+
+volumes:
+  data:
