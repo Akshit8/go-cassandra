@@ -20,8 +20,8 @@ type Config struct {
 	CassandraPort int    `mapstructure:"CASSANDRA_PORT"`
 }
 
-// LoadConfigFromEnv loads env variables to config object
-func LoadConfigFromEnv() (config Config, err error) {
+// LoadConfig loads env variables to config object
+func LoadConfig() (config Config, err error) {
 	viper.SetConfigName("config")
 	viper.SetConfigType("yml")
 	viper.AddConfigPath("./config")
@@ -37,6 +37,6 @@ func LoadConfigFromEnv() (config Config, err error) {
 	if err != nil {
 		return
 	}
-	
+
 	return
 }
