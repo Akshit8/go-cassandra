@@ -15,7 +15,7 @@ type Message struct {
 	ID           gocql.UUID `json:"id"`
 	UserID       gocql.UUID `json:"user_id"`
 	UserFullName string     `json:"user_full_name"`
-	Message      string     `json:"lastname"`
+	Message      string     `json:"message"`
 }
 
 // GetMessageResponse struct for embedding a single message
