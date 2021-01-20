@@ -5,4 +5,6 @@ git:
 
 cassandra: docker-compose up -d
 
-.PHONY: git cassandra
+server: go run main.go
+
+.PHONY: git cassandra server

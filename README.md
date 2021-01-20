@@ -51,13 +51,16 @@ https://getstream.io/activity-feeds/
 ## Makefile specs
 - **git** - git add - commit - push commands
 - **cassandra** - starts single node cassandra cluster on docker
+- **server** - run the server
 
 ## References
 [cassandra-setup](https://hub.docker.com/_/cassandra)<br>
 [gocql](https://github.com/gocql/gocql)<br>
 [cassandra-port-specs](https://stackoverflow.com/questions/2359159/cassandra-port-usage-how-are-the-ports-used)<br>
-[cnf-mgmt-go](https://medium.com/@bnprashanth256/reading-configuration-files-and-environment-variables-in-go-golang-c2607f912b63)<br>
+[cnfg-mgmt-go](https://medium.com/@bnprashanth256/reading-configuration-files-and-environment-variables-in-go-golang-c2607f912b63)<br>
 [stream-demo](https://getstream.io/get_started/?signup=1#flat_feed)<br>
+[stream-sdk-v2](https://github.com/getstream/stream-go2)<br>
+[stream-feed](https://getstream.io/blog/building-a-performant-api-using-go-and-cassandra/)
 
 ## Author
 **Akshit Sadana <akshitsadana@gmail.com>**
