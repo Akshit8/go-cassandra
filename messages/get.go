@@ -14,6 +14,7 @@ import (
 	"net/http"
 
 	"github.com/Akshit8/go-cassandra/db"
+	"github.com/Akshit8/go-cassandra/stream"
 	"github.com/Akshit8/go-cassandra/users"
 	"github.com/gocql/gocql"
 	"github.com/gorilla/mux"
@@ -30,40 +31,41 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	// var err error
 	m := map[string]interface{}{}
 
-	// globalMessages, err := stream.Client.FlatFeed("messages", "global")
-	// // fetch from Stream
-	// if err == nil {
-	// 	activities, err := globalMessages.Activities(nil)
-	// 	if err == nil {
-	// 		log.Println("Fetching activities from Stream")
-	// 		for _, activity := range activities.Activities {
-	// 			log.Println(activity)
-	// 			userID, _ := gocql.ParseUUID(activity.Actor)
-	// 			messageID, _ := gocql.ParseUUID(activity.Object)
-	// 			messageList = append(messageList, Message{
-	// 				ID:      messageID,
-	// 				UserID:  userID,
-	// 				Message: activity.MetaData["message"],
-	// 			})
-	// 			userList = append(userList, userID)
-	// 		}
-	// 	}
-	// } else {
-	// if Stream fails, pull from database instead
-	log.Println("fetching activities from db")
-	query := "SELECT id, user_id, message FROM messages"
-	iterable := db.Session.Query(query).Iter()
-	for iterable.MapScan(m) {
-		userID := m["user_id"].(gocql.UUID)
-		messageList = append(messageList, Message{
-			ID:      m["id"].(gocql.UUID),
-			UserID:  userID,
-			Message: m["message"].(string),
-		})
-		userList = append(userList, userID)
-		m = map[string]interface{}{}
+	globalMessages, err := stream.Client.FlatFeed("messages", "global")
+	// fetch from Stream
+	if err == nil {
+		activities, err := globalMessages.GetActivities()
+		log.Print("getActivites: ", activities)
+		if err == nil {
+			log.Println("Fetching activities from Stream")
+			for _, activity := range activities.Results {
+				log.Println(activity)
+				userID, _ := gocql.ParseUUID(activity.Actor)
+				messageID, _ := gocql.ParseUUID(activity.Object)
+				messageList = append(messageList, Message{
+					ID:      messageID,
+					UserID:  userID,
+					// Message: activity.MetaData["message"],
+				})
+				userList = append(userList, userID)
+			}
+		}
+	} else {
+		// if Stream fails, pull from database instead
+		log.Println("fetching activities from db")
+		query := "SELECT id, user_id, message FROM messages"
+		iterable := db.Session.Query(query).Iter()
+		for iterable.MapScan(m) {
+			userID := m["user_id"].(gocql.UUID)
+			messageList = append(messageList, Message{
+				ID:      m["id"].(gocql.UUID),
+				UserID:  userID,
+				Message: m["message"].(string),
+			})
+			userList = append(userList, userID)
+			m = map[string]interface{}{}
+		}
 	}
-	// }
 
 	names := users.Enrich(userList)
 	for _, message := range messageList {

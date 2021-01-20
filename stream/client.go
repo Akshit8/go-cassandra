@@ -29,6 +29,10 @@ func Connect(apiKey, apiSecret, apiRegion string) error {
 		return errors.New("missing api credentials")
 	}
 	log.Printf("%s %s %s", apiKey, apiSecret, apiRegion)
-	Client, err = getstream.New(apiKey, apiSecret)
+	Client, err = getstream.New(
+		apiKey, 
+		apiSecret,
+		getstream.WithAPIRegion(apiRegion),
+	)
 	return err
 }

@@ -71,7 +71,7 @@ func Post(w http.ResponseWriter, r *http.Request) {
 				// 	"message": message,
 				// },
 			})
-			log.Print("stream error 2", err)
+			log.Print("stream error 2 ", err)
 		}
 		json.NewEncoder(w).Encode(NewMessageResponse{ID: gocqlUUID})
 	} else {
