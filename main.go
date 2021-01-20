@@ -15,6 +15,7 @@ import (
 
 	"github.com/Akshit8/go-cassandra/config"
 	"github.com/Akshit8/go-cassandra/db"
+	"github.com/Akshit8/go-cassandra/stream"
 	"github.com/Akshit8/go-cassandra/users"
 	"github.com/gorilla/mux"
 )
@@ -35,6 +36,16 @@ func main() {
 
 	// defer closing our Cassandra connection:
 	defer db.Session.Close()
+
+	// int stream api client
+	err = stream.Connect(
+		config.StreamAPIKey,
+		config.StreamAPIKey,
+		config.StreamAPIRegion,
+	)
+	if err != nil {
+		log.Fatal("Could not connect to Stream: ", err)
+	}
 
 	// create API router using mux
 	listeningAddress := fmt.Sprintf(":%s", config.AppPort)
