@@ -10,7 +10,6 @@ package messages
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -59,17 +58,13 @@ func Post(w http.ResponseWriter, r *http.Request) {
 
 	if created {
 		// send message to stream
-		globalMessages, err := stream.Client.FlatFeed("messages", "global")
+		globalMessages, err := stream.Client.FlatFeed("akshit", "global")
 		log.Print("stream error", err)
 		if err == nil {
 			_, err := globalMessages.AddActivity(getstream.Activity{
-				Actor:  fmt.Sprintf("user:%s", userID.String()),
+				Actor:  userID.String(),
 				Verb:   "post",
-				Object: fmt.Sprintf("object:%s", gocqlUUID.String()),
-				// MetaData: map[string]string{
-				// 	// add as many custom keys/values here as you like
-				// 	"message": message,
-				// },
+				Object: gocqlUUID.String(),
 			})
 			log.Print("stream error 2 ", err)
 		}

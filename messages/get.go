@@ -28,10 +28,10 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	var messageList []Message
 	var enrichedMessages []Message
 	var userList []gocql.UUID
-	// var err error
+	var err error
 	m := map[string]interface{}{}
 
-	globalMessages, err := stream.Client.FlatFeed("messages", "global")
+	globalMessages, err := stream.Client.FlatFeed("akshit", "global")
 	// fetch from Stream
 	if err == nil {
 		activities, err := globalMessages.GetActivities()
@@ -40,12 +40,13 @@ func Get(w http.ResponseWriter, r *http.Request) {
 			log.Println("Fetching activities from Stream")
 			for _, activity := range activities.Results {
 				log.Println(activity)
-				userID, _ := gocql.ParseUUID(activity.Actor)
+				userID, err := gocql.ParseUUID(activity.Actor)
+				log.Print("parse UUID err ", err)
 				messageID, _ := gocql.ParseUUID(activity.Object)
+				log.Printf("userID: %s messageID: %s", userID.String(), messageID.String())
 				messageList = append(messageList, Message{
 					ID:      messageID,
 					UserID:  userID,
-					// Message: activity.MetaData["message"],
 				})
 				userList = append(userList, userID)
 			}
