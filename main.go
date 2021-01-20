@@ -15,6 +15,7 @@ import (
 
 	"github.com/Akshit8/go-cassandra/config"
 	"github.com/Akshit8/go-cassandra/db"
+	"github.com/Akshit8/go-cassandra/messages"
 	"github.com/Akshit8/go-cassandra/stream"
 	"github.com/Akshit8/go-cassandra/users"
 	"github.com/gorilla/mux"
@@ -40,7 +41,7 @@ func main() {
 	// int stream api client
 	err = stream.Connect(
 		config.StreamAPIKey,
-		config.StreamAPIKey,
+		config.StreamAPISecret,
 		config.StreamAPIRegion,
 	)
 	if err != nil {
@@ -50,13 +51,16 @@ func main() {
 	// create API router using mux
 	listeningAddress := fmt.Sprintf(":%s", config.AppPort)
 	router := mux.NewRouter().StrictSlash(true)
-	
+
 	router.HandleFunc("/health", health)
 
 	router.HandleFunc("/users", users.Get)
 	router.HandleFunc("/users/new", users.Post)
 	router.HandleFunc("/users/{user_uuid}", users.GetOne)
 
+	router.HandleFunc("/messages", messages.Get)
+	router.HandleFunc("/messages/new", messages.Post)
+	router.HandleFunc("/messages/{message_uuid}", messages.GetOne)
 
 	log.Fatal(http.ListenAndServe(listeningAddress, router))
 }

@@ -10,8 +10,9 @@ package stream
 
 import (
 	"errors"
+	"log"
 
-	getstream "github.com/GetStream/stream-go"
+	getstream "github.com/GetStream/stream-go2/v5"
 )
 
 // Client holds our connection to Stream
@@ -27,11 +28,7 @@ func Connect(apiKey, apiSecret, apiRegion string) error {
 	if apiKey == "" || apiSecret == "" || apiRegion == "" {
 		return errors.New("missing api credentials")
 	}
-
-	Client, err = getstream.New(&getstream.Config{
-		APIKey:    apiKey,
-		APISecret: apiSecret,
-		Location:  apiRegion,
-	})
+	log.Printf("%s %s %s", apiKey, apiSecret, apiRegion)
+	Client, err = getstream.New(apiKey, apiSecret)
 	return err
 }
