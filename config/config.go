@@ -22,6 +22,9 @@ type Config struct {
 	CassandraHost     string `mapstructure:"CASSANDRA_HOST"`
 	CassandraPort     int    `mapstructure:"CASSANDRA_PORT"`
 	CassandraKeyspace string `mapstructure:"CASSANDRA_KEYSPACE"`
+	StreamAPIKey      string `mapstructure:"STREAM_API_KEY"`
+	StreamAPISecret   string `mapstructure:"STREAM_API_SECRET"`
+	StreamAPIRegion   string `mapstructure:"STREAM_API_REGION"`
 }
 
 // LoadConfig loads env variables to config object
