@@ -30,3 +30,4 @@ func CassandraConnect(cassandraHost string, cassandraPort int, cassandraKeyspace
 	}
 	log.Print("connected to cassandra db")
 }
+

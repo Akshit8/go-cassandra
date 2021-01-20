@@ -3,13 +3,15 @@
 ## Starting a single-node cassandra cluster
 ```bash
 docker-compose up -d
+
+# getting cqlsh
+docker exec -it cassandraDB cqlsh
 ```
 
 ## Creating your cassandra cluster schema
 ```bash
 # create cassandra keyspace
-CREATE KEYSPACE akshit WITH \
-replication = {'class': 'SimpleStrategy', 'replication_factor' : 1};
+CREATE KEYSPACE akshit WITH replication = {'class': 'SimpleStrategy', 'replication_factor' : 1};
 
 # create table messages
 use akshit;
@@ -41,16 +43,21 @@ cat sample.config.yml > config.yml
 # populate the file with your variables
 ```
 
+## Stream
+Helps to Build scalable activity feeds.
+<br>
+https://getstream.io/activity-feeds/
+
 ## Makefile specs
 - **git** - git add - commit - push commands
 - **cassandra** - starts single node cassandra cluster on docker
-
 
 ## References
 [cassandra-setup](https://hub.docker.com/_/cassandra)<br>
 [gocql](https://github.com/gocql/gocql)<br>
 [cassandra-port-specs](https://stackoverflow.com/questions/2359159/cassandra-port-usage-how-are-the-ports-used)<br>
 [cnf-mgmt-go](https://medium.com/@bnprashanth256/reading-configuration-files-and-environment-variables-in-go-golang-c2607f912b63)<br>
+[stream-demo](https://getstream.io/get_started/?signup=1#flat_feed)<br>
 
 ## Author
 **Akshit Sadana <akshitsadana@gmail.com>**
